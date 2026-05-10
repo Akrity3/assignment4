@@ -21,14 +21,14 @@ class _EmployeeDataViewState extends State<EmployeeDataView> {
 
   final List<EmployeeModel> _lstEmployees = []; // listview
 
-  //Gender dropdown list
+  // Gender dropdown list
   final List<DropdownMenuItem<String>> _genders = const [
     DropdownMenuItem(value: "Male", child: Text("Male")),
     DropdownMenuItem(value: "Female", child: Text("Female")),
     DropdownMenuItem(value: "Other", child: Text("Other")),
   ];
 
-  //department dropdown list
+  // Department dropdown list
   final List<DropdownMenuItem<String>> _departments = const [
     DropdownMenuItem(value: "IT", child: Text("IT")),
     DropdownMenuItem(value: "HR", child: Text("HR")),
@@ -61,7 +61,8 @@ class _EmployeeDataViewState extends State<EmployeeDataView> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Employee'),
-        backgroundColor: const Color(0xFFBBDEFB),),
+        backgroundColor: Colors.blue.shade100,
+      ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20.0),
         child: Form(
@@ -71,7 +72,8 @@ class _EmployeeDataViewState extends State<EmployeeDataView> {
             children: [
               const SizedBox(height: 20),
 
-              CustomTextField(  // Employee ID
+              // Employee ID
+              CustomTextField(
                 controller: _empIdController,
                 labelText: 'Employee ID',
                 hintText: 'Enter employee ID',
@@ -79,15 +81,18 @@ class _EmployeeDataViewState extends State<EmployeeDataView> {
                 keyboardType: TextInputType.number,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please enter employee ID';}
+                    return 'Please enter employee ID';
+                  }
                   if (int.tryParse(value) == null) {
                     return 'Employee ID must be a number';
-                   }
+                  }
                   return null;
-                }, ),
+                },
+              ),
               const SizedBox(height: 20),
 
-              CustomTextField( // Full Name
+              // Full Name
+              CustomTextField(
                 controller: _fullNameController,
                 labelText: 'Full Name',
                 hintText: 'Enter full name',
@@ -100,7 +105,9 @@ class _EmployeeDataViewState extends State<EmployeeDataView> {
                 },
               ),
               const SizedBox(height: 20),
-              CustomDropdown( // Gender
+
+              // Gender
+              CustomDropdown(
                 labelText: 'Gender',
                 prefixIcon: Icons.wc,
                 value: _selectedGender,
@@ -108,16 +115,18 @@ class _EmployeeDataViewState extends State<EmployeeDataView> {
                 onChanged: (value) {
                   setState(() {
                     _selectedGender = value;
-                  }); },
+                  });
+                },
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please select gender';
                   }
                   return null;
                 },
-               ),
+              ),
               const SizedBox(height: 20),
-              // Department 
+
+              // Department
               CustomDropdown(
                 labelText: 'Department',
                 prefixIcon: Icons.business,
@@ -127,13 +136,14 @@ class _EmployeeDataViewState extends State<EmployeeDataView> {
                   setState(() {
                     _selectedDepartment = value;
                   });
-                 },
+                },
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please select department';
                   }
                   return null;
-                },),
+                },
+              ),
               const SizedBox(height: 20),
 
               // Username
@@ -151,7 +161,7 @@ class _EmployeeDataViewState extends State<EmployeeDataView> {
               ),
               const SizedBox(height: 20),
 
-              // Password 
+              // Password
               CustomPasswordField(
                 controller: _passwordController,
                 validator: (value) {
@@ -188,20 +198,11 @@ class _EmployeeDataViewState extends State<EmployeeDataView> {
                           });
 
                           _clearForm();
-                        }
-                      },
+                        }},
                       icon: const Icon(Icons.add),
                       label: const Text('Add Employee'),
-                      style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(vertical: 15),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        backgroundColor: const Color(0xFF90CAF9),
-                        foregroundColor: Colors.white,
-                      ),
                     ),
-                  ),
+                    ),
                   const SizedBox(width: 15),
                   Expanded(
                     child: ElevatedButton.icon(
@@ -211,13 +212,6 @@ class _EmployeeDataViewState extends State<EmployeeDataView> {
                       },
                       icon: const Icon(Icons.clear),
                       label: const Text('Clear'),
-                      style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(vertical: 15),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        backgroundColor: const Color(0xFFCE93D8),
-                        foregroundColor: Colors.white,),
                     ),
                    ),
                 ],),
@@ -232,15 +226,10 @@ class _EmployeeDataViewState extends State<EmployeeDataView> {
                   itemBuilder: (context, index) {
                     final employee = _lstEmployees[index];
                     return Card(
-                      color: const Color(0xFFEDE7F6),
                       margin: const EdgeInsets.symmetric(vertical: 8),
                       child: ListTile(
                         leading: CircleAvatar(
-                          backgroundColor: const Color(0xFFB39DDB),
-                          child: Text(
-                            employee.fullName[0].toUpperCase(),
-                            style: const TextStyle(color: Colors.white),
-                          ),
+                          child: Text(employee.fullName[0].toUpperCase()),
                         ),
                         title: Text(employee.fullName),
                         subtitle: Text(
@@ -249,22 +238,20 @@ class _EmployeeDataViewState extends State<EmployeeDataView> {
                         trailing: Wrap(
                           spacing: 12,
                           children: [
-                            // Edit button
                             IconButton(
-                              icon: const Icon(Icons.edit, color: Colors.blue),
-                              onPressed: () {
-                                setState(() {
-                                  _empIdController.text = employee.empId;
-                                  _fullNameController.text = employee.fullName;
-                                  _usernameController.text = employee.username;
-                                  _passwordController.text = employee.password;
-                                  _selectedGender = employee.gender;
-                                  _selectedDepartment = employee.department;
-                                  _lstEmployees.removeAt(index);
-                                });
-                                 },
-                             ),
-
+                                icon: const Icon(Icons.edit, color: Colors.blue),
+                                onPressed: () {
+                                  setState(() {
+                                    _empIdController.text = employee.empId;
+                                    _fullNameController.text = employee.fullName;
+                                    _usernameController.text = employee.username;
+                                    _passwordController.text = employee.password;
+                                    _selectedGender = employee.gender;
+                                    _selectedDepartment = employee.department;
+                                    _lstEmployees.removeAt(index);
+                                  });
+                                },
+                            ),
                             // Delete button
                             IconButton(
                               icon: const Icon(Icons.delete, color: Colors.red),
@@ -273,24 +260,22 @@ class _EmployeeDataViewState extends State<EmployeeDataView> {
                                   _lstEmployees.removeAt(index);
                                 });
                               },
-                            ),
-                          ], ),
-                      ), );
-                  },
-                ), }
-                else ...{
-                  Text(
-                    'No Employees Added',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: Colors.grey.shade400,
-                    ),
-                  ),
-                },
-              ],
-            ),
-            ),
-      ),
+                            ),],
+                          ),
+                      ),
+                      ); 
+                    },
+                ),
+              } else ...{
+                Text(
+                  'No Data',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 24, color: Colors.grey.shade400),
+                ),
+              },
+            ],
+          ),
+          ), 
+        ),
     );}
 }
