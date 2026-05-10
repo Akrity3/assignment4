@@ -1,3 +1,4 @@
+import 'package:assignment4/views/grid_view.dart';
 import 'package:flutter/material.dart';
 
 class DashboardView extends StatelessWidget {
@@ -69,12 +70,12 @@ class DashboardView extends StatelessWidget {
                         ),
                         onTap: ()
                         {
-                        //   // Navigator.push(
-                        //   //   context,
-                        //   //   MaterialPageRoute(
-                        //   //     builder: (context) => const GridViewScreen(),
-                        //     ),
-                          // );
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const GridViewScreen(),
+                            ),
+                          );
                         },
                       ),
                       const SizedBox(height: 20),
